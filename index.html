@@ -216,45 +216,52 @@
      @scroll.window="scrolled = window.scrollY > 10"
      @keydown.escape="mobileMenu = false">
     
-<!-- Desktop Navigation -->
+    <!-- Nav Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <!-- Logo and Desktop Menu -->
+            <!-- ... (keep your existing logo/desktop menu code) ... -->
+             
+            
+   <!-- Desktop Navigation -->
 <div class="hidden lg:flex items-center justify-between max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 w-full">
   <!-- Logo + Website Name -->
   <a href="#home" class="flex items-center space-x-3 hover:text-accent-500 transition-colors duration-300">
     <img src="WhatsApp.jpg" alt="GreenNotes Logo" class="h-10 w-auto" />
     <span class="text-2xl font-bold text-primary-600">GreenNotes</span>
-  </a>    
-            
-         <!-- Desktop Menu -->
-<div class="hidden lg:flex items-center space-x-10">
+  </a>
+
+  <!-- Menu Links -->
+  <div class="flex items-center space-x-10">
     <a href="#home" class="text-secondary-700 hover:text-primary-600 font-medium transition-colors duration-300 relative group">
-        Home
-        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+      Home
+      <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
     </a>
     <a href="#features" class="text-secondary-700 hover:text-primary-600 font-medium transition-colors duration-300 relative group">
-        Features
-        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+      Features
+      <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
     </a>
     <a href="#about" class="text-secondary-700 hover:text-primary-600 font-medium transition-colors duration-300 relative group">
-        About
-        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+      About
+      <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
     </a>
     <a href="#solutions" class="text-secondary-700 hover:text-primary-600 font-medium transition-colors duration-300 relative group">
-        Solutions
-        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+      Solutions
+      <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
     </a>
     <a href="#pricing" class="text-secondary-700 hover:text-primary-600 font-medium transition-colors duration-300 relative group">
-        Pricing
-        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+      Pricing
+      <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
     </a>
     <a href="#resources" class="text-secondary-700 hover:text-primary-600 font-medium transition-colors duration-300 relative group">
-        Resources
-        <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+      Resources
+      <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
     </a>
     <a href="#contact" class="px-6 py-2 bg-gradient-to-r from-primary-500 to-accent-500 text-white font-medium rounded-full hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
-        Contact Us
+      Contact Us
     </a>
-</div>
-            
+  </div>
+</div>    
          <!-- Mobile Menu Button -->
             <div class="lg:hidden flex items-center">
                 <button @click="mobileMenu = !mobileMenu" 
@@ -281,7 +288,7 @@
     <div class="flex items-center lg:hidden space-x-4">
         <!-- Mobile Logo -->
         <a href="#home" class="text-xl font-bold text-primary-600 hover:text-accent-500 transition-colors duration-300">
-            Green Notes
+            GreenNotes
         </a>
         <div class="min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12">
             <!-- Close Button -->
