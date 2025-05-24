@@ -1,0 +1,1635 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Green Notes Pro | Sustainable Learning Platform</title>
+    <meta name="description" content="Premium sustainable learning platform with digital note-sharing, eco-friendly education tools, and collaborative features.">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        secondary: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                        accent: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                        display: ['Montserrat', 'sans-serif'],
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in': 'fadeIn 1s ease-in',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { 
+                                opacity: '0',
+                                transform: 'translateY(30px)'
+                            },
+                            '100%': { 
+                                opacity: '1',
+                                transform: 'translateY(0)'
+                            },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Alpine JS -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <style>
+        .gradient-text {
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            background-image: linear-gradient(90deg, #16a34a, #0ea5e9);
+        }
+        
+        .hero-gradient {
+            background: linear-gradient(135deg, rgba(22, 163, 74, 0.1) 0%, rgba(14, 165, 233, 0.1) 100%);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        
+        .testimonial-card {
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            box-shadow: 20px 20px 60px #d9d9d9, -20px -20px 60px #ffffff;
+        }
+        
+        .stats-card {
+            background: linear-gradient(145deg, #ffffff, #f8fafc);
+            box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.05);
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 15px 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .blob {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(180deg, rgba(22, 163, 74, 0.1) 0%, rgba(14, 165, 233, 0.1) 100%);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            filter: blur(60px);
+            z-index: -1;
+        }
+        
+        .blob-1 {
+            top: -100px;
+            left: -100px;
+        }
+        
+        .blob-2 {
+            bottom: -100px;
+            right: -100px;
+        }
+        
+        .timeline-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -50px;
+            width: 2px;
+            height: 50px;
+            background: linear-gradient(to bottom, #86efac, #0ea5e9);
+        }
+        
+        @media (max-width: 768px) {
+            .timeline-item:not(:last-child)::after {
+                left: 30px;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans bg-gray-50 antialiased" x-data="{ 
+    mobileMenu: false,
+    activeTestimonial: 0,
+    testimonialInterval: null,
+    startTestimonialRotation() {
+        this.testimonialInterval = setInterval(() => {
+            this.activeTestimonial = (this.activeTestimonial + 1) % 3;
+        }, 5000);
+    },
+    stopTestimonialRotation() {
+        clearInterval(this.testimonialInterval);
+    }
+}" x-init="startTestimonialRotation()">
+
+<!-- Preloader -->
+<div class="fixed inset-0 bg-white z-50 flex items-center justify-center" x-data="{ show: true }" x-show="show" x-transition:leave="transition ease-out duration-500" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" @load.window="setTimeout(() => show = false, 1000)">
+    <div class="w-24 h-24 relative">
+        <div class="absolute inset-0 rounded-full border-4 border-t-primary-500 border-r-primary-500 border-b-transparent border-l-transparent animate-spin"></div>
+        <div class="absolute inset-4 rounded-full border-4 border-t-primary-400 border-r-transparent border-b-transparent border-l-primary-400 animate-spin animation-delay-300"></div>
+        <div class="absolute inset-8 rounded-full border-4 border-t-primary-300 border-r-primary-300 border-b-transparent border-l-transparent animate-spin animation-delay-600"></div>
+    </div>
+</div>
+
+<!-- Navigation -->
+<nav class="fixed w-full z-50 transition-all duration-300" :class="{ 'bg-white shadow-xl py-2': window.scrollY > 10, 'bg-transparent py-4': window.scrollY <= 10 }" x-data="{ scrolled: false }" @scroll.window="scrolled = window.scrollY > 10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+            <!-- Logo -->
+            <div class="flex items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-primary-500 to-accent-500 flex items-center justify-center text-white font-bold text-xl">GN</div>
+                    <span class="ml-3 text-2xl font-display font-bold bg-gradient-to-r from-primary-600 to-accent-600 bg-clip-text text-transparent">Green Notes</span>
+                </div>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center space-x-10">
+                <a href="#home" class="text-secondary-700 hover:text-primary-600 font-medium transition-colors duration-300 relative group">
+                    Home
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#features" class="text-secondary-700 hover:text-primary-600 font-medium transition-colors duration-300 relative group">
+                    Features
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#about" class="text-secondary-700 hover:text-primary-600 font-medium transition-colors duration-300 relative group">
+                    About
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#solutions" class="text-secondary-700 hover:text-primary-600 font-medium transition-colors duration-300 relative group">
+                    Solutions
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#pricing" class="text-secondary-700 hover:text-primary-600 font-medium transition-colors duration-300 relative group">
+                    Pricing
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#resources" class="text-secondary-700 hover:text-primary-600 font-medium transition-colors duration-300 relative group">
+                    Resources
+                    <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-600 transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#contact" class="px-6 py-2 bg-gradient-to-r from-primary-500 to-accent-500 text-white font-medium rounded-full hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                    Contact Us
+                </a>
+            </div>
+            
+            <!-- Mobile menu button -->
+            <div class="lg:hidden flex items-center">
+                <button @click="mobileMenu = !mobileMenu" class="inline-flex items-center justify-center p-2 rounded-md text-secondary-700 hover:text-primary-600 focus:outline-none transition duration-150 ease-in-out">
+                    <i :class="{ 'fa-times': mobileMenu, 'fa-bars': !mobileMenu }" class="fas text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div class="lg:hidden fixed inset-0 bg-white z-40 overflow-y-auto" x-show="mobileMenu" x-transition:enter="transition ease-out duration-300" 
+         x-transition:enter-start="opacity-0 translate-y-1" 
+         x-transition:enter-end="opacity-100 translate-y-0" 
+         x-transition:leave="transition ease-in duration-300" 
+         x-transition:leave-start="opacity-100 translate-y-0" 
+         x-transition:leave-end="opacity-0 translate-y-1">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12">
+            <div class="flex flex-col space-y-8">
+                <a href="#home" @click="mobileMenu = false" class="text-2xl font-medium text-secondary-700 hover:text-primary-600 transition-colors duration-300">Home</a>
+                <a href="#features" @click="mobileMenu = false" class="text-2xl font-medium text-secondary-700 hover:text-primary-600 transition-colors duration-300">Features</a>
+                <a href="#about" @click="mobileMenu = false" class="text-2xl font-medium text-secondary-700 hover:text-primary-600 transition-colors duration-300">About</a>
+                <a href="#solutions" @click="mobileMenu = false" class="text-2xl font-medium text-secondary-700 hover:text-primary-600 transition-colors duration-300">Solutions</a>
+                <a href="#pricing" @click="mobileMenu = false" class="text-2xl font-medium text-secondary-700 hover:text-primary-600 transition-colors duration-300">Pricing</a>
+                <a href="#resources" @click="mobileMenu = false" class="text-2xl font-medium text-secondary-700 hover:text-primary-600 transition-colors duration-300">Resources</a>
+                <a href="#contact" @click="mobileMenu = false" class="mt-8 px-6 py-3 bg-gradient-to-r from-primary-500 to-accent-500 text-white font-medium rounded-full text-xl text-center hover:shadow-lg transition-all duration-300">
+                    Contact Us
+                </a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="home" class="relative pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <div class="absolute inset-0 overflow-hidden">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto relative z-10">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+            <div class="lg:w-1/2" data-aos="fade-right" data-aos-duration="800">
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-secondary-900 mb-6 leading-tight">
+                    Revolutionizing <span class="gradient-text">Education</span> with Sustainable Technology
+                </h1>
+                <p class="text-lg sm:text-xl text-secondary-600 mb-8 leading-relaxed">
+                    Join the movement of over 250,000 students and educators who are transforming learning while saving the planet. Our platform reduces paper waste by 92% while enhancing collaboration.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <button class="px-8 py-4 bg-gradient-to-r from-primary-500 to-accent-500 text-white font-medium rounded-full hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center">
+                        <span>Get Started Free</span>
+                        <i class="fas fa-arrow-right ml-3"></i>
+                    </button>
+                    <button class="px-8 py-4 border-2 border-primary-500 text-primary-600 font-medium rounded-full hover:bg-primary-50 transition-all duration-300 flex items-center justify-center">
+                        <i class="fas fa-play-circle mr-3 text-xl"></i>
+                        <span>Watch Demo</span>
+                    </button>
+                </div>
+                
+                <div class="mt-10 flex items-center">
+                    <div class="flex -space-x-2">
+                        <img class="w-10 h-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/12.jpg" alt="User 1">
+                        <img class="w-10 h-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/men/32.jpg" alt="User 2">
+                        <img class="w-10 h-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/45.jpg" alt="User 3">
+                        <img class="w-10 h-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/men/76.jpg" alt="User 4">
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-secondary-600">Trusted by 250K+ users worldwide</p>
+                        <div class="flex items-center">
+                            <div class="flex">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                            <span class="ml-2 text-sm font-medium text-secondary-600">4.9/5 (2,483 reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lg:w-1/2 relative" data-aos="fade-left" data-aos-duration="800">
+                <div class="relative">
+                    <div class="absolute -top-8 -left-8 w-32 h-32 bg-primary-100 rounded-2xl -z-10"></div>
+                    <div class="absolute -bottom-8 -right-8 w-32 h-32 bg-accent-100 rounded-2xl -z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Digital Learning" class="rounded-2xl shadow-2xl w-full h-auto">
+                </div>
+                
+                <div class="absolute -bottom-10 -right-10 bg-white p-4 rounded-2xl shadow-xl" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center">
+                        <div class="p-3 bg-primary-100 rounded-lg">
+                            <i class="fas fa-leaf text-primary-600 text-xl"></i>
+                        </div>
+                        <div class="ml-3">
+                            <p class="text-sm font-medium text-secondary-600">Paper saved today</p>
+                            <p class="text-xl font-bold text-secondary-900">15,842 sheets</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Logo Cloud -->
+<div class="py-12 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <p class="text-center text-sm font-semibold uppercase text-secondary-500 tracking-wide mb-8">
+            Trusted by leading educational institutions worldwide
+        </p>
+        <div class="grid grid-cols-2 gap-8 md:grid-cols-4 lg:grid-cols-6">
+            <div class="col-span-1 flex justify-center items-center opacity-60 hover:opacity-100 transition-opacity duration-300">
+                <img class="h-12" src="https://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Harvard_University_logo.svg/1200px-Harvard_University_logo.svg.png" alt="Harvard">
+            </div>
+            <div class="col-span-1 flex justify-center items-center opacity-60 hover:opacity-100 transition-opacity duration-300">
+                <img class="h-12" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Stanford_University_wordmark_2005.svg/1200px-Stanford_University_wordmark_2005.svg.png" alt="Stanford">
+            </div>
+            <div class="col-span-1 flex justify-center items-center opacity-60 hover:opacity-100 transition-opacity duration-300">
+                <img class="h-12" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/MIT_logo.svg/1200px-MIT_logo.svg.png" alt="MIT">
+            </div>
+            <div class="col-span-1 flex justify-center items-center opacity-60 hover:opacity-100 transition-opacity duration-300">
+                <img class="h-12" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/University_of_California%2C_Berkeley_logo.svg/1200px-University_of_California%2C_Berkeley_logo.svg.png" alt="Berkeley">
+            </div>
+            <div class="col-span-1 flex justify-center items-center opacity-60 hover:opacity-100 transition-opacity duration-300">
+                <img class="h-12" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Yale_University_logo.svg/1200px-Yale_University_logo.svg.png" alt="Yale">
+            </div>
+            <div class="col-span-1 flex justify-center items-center opacity-60 hover:opacity-100 transition-opacity duration-300">
+                <img class="h-12" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/Princeton_shield.svg/1200px-Princeton_shield.svg.png" alt="Princeton">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<section id="features" class="py-20 bg-gradient-to-b from-white to-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="inline-block px-4 py-2 bg-primary-100 text-primary-600 rounded-full text-sm font-medium mb-4">
+                Powerful Features
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-display font-bold text-secondary-900 mb-4">
+                Everything You Need for <span class="gradient-text">Sustainable Learning</span>
+            </h2>
+            <p class="text-lg text-secondary-600 max-w-3xl mx-auto">
+                Our platform combines cutting-edge technology with eco-conscious design to deliver an unparalleled educational experience.
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Feature 1 -->
+            <div class="feature-card bg-white rounded-xl p-8 shadow-md transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-16 h-16 bg-primary-100 rounded-xl mb-6 flex items-center justify-center">
+                    <i class="fas fa-book-open text-primary-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-secondary-900 mb-4">Smart Note Sharing</h3>
+                <p class="text-secondary-600 mb-6">
+                    Share, organize, and access study materials in eco-friendly formats with our intelligent platform.
+                </p>
+                <ul class="space-y-3">
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                        <span class="text-secondary-600">Version control for notes</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                        <span class="text-secondary-600">Automatic formatting</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                        <span class="text-secondary-600">Multi-device sync</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="feature-card bg-white rounded-xl p-8 shadow-md transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-16 h-16 bg-primary-100 rounded-xl mb-6 flex items-center justify-center">
+                    <i class="fas fa-users text-primary-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-secondary-900 mb-4">Collaborative Learning</h3>
+                <p class="text-secondary-600 mb-6">
+                    Real-time collaboration tools for group study sessions with built-in video and chat.
+                </p>
+                <ul class="space-y-3">
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                        <span class="text-secondary-600">Live document editing</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                        <span class="text-secondary-600">Study group management</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                        <span class="text-secondary-600">Task assignment</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="feature-card bg-white rounded-xl p-8 shadow-md transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-16 h-16 bg-primary-100 rounded-xl mb-6 flex items-center justify-center">
+                    <i class="fas fa-tree text-primary-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-secondary-900 mb-4">Eco Analytics</h3>
+                <p class="text-secondary-600 mb-6">
+                    Track your environmental impact with detailed reports on paper saved and carbon offset.
+                </p>
+                <ul class="space-y-3">
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                        <span class="text-secondary-600">Personal impact dashboard</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                        <span class="text-secondary-600">Class/school comparisons</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                        <span class="text-secondary-600">Sustainability badges</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Feature 4 -->
+            <div class="feature-card bg-white rounded-xl p-8 shadow-md transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-16 h-16 bg-primary-100 rounded-xl mb-6 flex items-center justify-center">
+                    <i class="fas fa-brain text-primary-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-secondary-900 mb-4">AI Study Assistant</h3>
+                <p class="text-secondary-600 mb-6">
+                    Our AI helps summarize, highlight, and generate study questions from your materials.
+                </p>
+                <ul class="space-y-3">
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                        <span class="text-secondary-600">Smart summarization</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                        <span class="text-secondary-600">Flashcard generation</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                        <span class="text-secondary-600">Personalized quizzes</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Feature 5 -->
+            <div class="feature-card bg-white rounded-xl p-8 shadow-md transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-16 h-16 bg-primary-100 rounded-xl mb-6 flex items-center justify-center">
+                    <i class="fas fa-mobile-alt text-primary-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-secondary-900 mb-4">Mobile Optimization</h3>
+                <p class="text-secondary-600 mb-6">
+                    Full-featured mobile apps for studying anywhere, with offline access to your materials.
+                </p>
+                <ul class="space-y-3">
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                        <span class="text-secondary-600">Offline mode</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                        <span class="text-secondary-600">Audio note-taking</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                        <span class="text-secondary-600">Cross-platform sync</span>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Feature 6 -->
+            <div class="feature-card bg-white rounded-xl p-8 shadow-md transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                <div class="w-16 h-16 bg-primary-100 rounded-xl mb-6 flex items-center justify-center">
+                    <i class="fas fa-shield-alt text-primary-600 text-2xl"></i>
+                </div>
+                <h3 class="text-xl font-semibold text-secondary-900 mb-4">Enterprise Security</h3>
+                <p class="text-secondary-600 mb-6">
+                    Military-grade encryption and compliance with educational data protection standards.
+                </p>
+                <ul class="space-y-3">
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                        <span class="text-secondary-600">End-to-end encryption</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                        <span class="text-secondary-600">FERPA compliant</span>
+                    </li>
+                    <li class="flex items-center">
+                        <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                        <span class="text-secondary-600">Regular security audits</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="mt-16 text-center" data-aos="fade-up">
+            <button class="px-8 py-4 border-2 border-primary-500 text-primary-600 font-medium rounded-full hover:bg-primary-50 transition-all duration-300 inline-flex items-center">
+                <span>View All Features</span>
+                <i class="fas fa-arrow-right ml-3"></i>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-20 bg-gradient-to-r from-primary-600 to-accent-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                <div class="text-5xl font-bold mb-3">250K+</div>
+                <p class="text-primary-100">Active Users</p>
+            </div>
+            <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                <div class="text-5xl font-bold mb-3">15M+</div>
+                <p class="text-primary-100">Pages Saved</p>
+            </div>
+            <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                <div class="text-5xl font-bold mb-3">92%</div>
+                <p class="text-primary-100">Paper Reduction</p>
+            </div>
+            <div class="text-center" data-aos="fade-up" data-aos-delay="400">
+                <div class="text-5xl font-bold mb-3">4.9/5</div>
+                <p class="text-primary-100">User Satisfaction</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section id="about" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex flex-col lg:flex-row items-center gap-12">
+            <div class="lg:w-1/2" data-aos="fade-right">
+                <span class="inline-block px-4 py-2 bg-primary-100 text-primary-600 rounded-full text-sm font-medium mb-4">
+                    Our Story
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-display font-bold text-secondary-900 mb-6">
+                    Bridging <span class="gradient-text">Education</span> and Sustainability
+                </h2>
+                <p class="text-lg text-secondary-600 mb-6">
+                    Founded by Albukhary International University students frustrated with paper waste in academia, Green Notes has grown into the leading platform for sustainable learning.
+                </p>
+                <p class="text-lg text-secondary-600 mb-8">
+                    Our mission is to reduce the environmental impact of education while enhancing learning outcomes through innovative technology and community-driven solutions.
+                </p>
+                
+                <div class="grid sm:grid-cols-2 gap-6">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mt-1">
+                            <div class="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center">
+                                <i class="fas fa-check text-primary-600"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-medium text-secondary-900">Certified B Corp</h3>
+                            <p class="text-secondary-600 mt-1">Meeting highest standards of social and environmental performance</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mt-1">
+                            <div class="w-10 h-10 rounded-full bg-primary-100 flex items-center justify-center">
+                                <i class="fas fa-check text-primary-600"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-medium text-secondary-900">Carbon Neutral</h3>
+                            <p class="text-secondary-600 mt-1">100% of our emissions are offset through verified projects</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="lg:w-1/2 relative" data-aos="fade-left">
+                <div class="relative">
+                    <div class="absolute -top-8 -left-8 w-32 h-32 bg-primary-100 rounded-2xl -z-10"></div>
+                    <div class="absolute -bottom-8 -right-8 w-32 h-32 bg-accent-100 rounded-2xl -z-10"></div>
+                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Team working" class="rounded-2xl shadow-2xl w-full h-auto">
+                </div>
+                
+                <div class="absolute -bottom-10 -left-10 bg-white p-6 rounded-2xl shadow-xl" data-aos="fade-up" data-aos-delay="300">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+<img class="w-16 h-16 rounded-full" src="aqib-profile.jpg" alt="Sarah Johnson">
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-secondary-600">Aqib Ali</p>
+                            <p class="text-sm text-secondary-500">CEO & Founder</p>
+                            <div class="flex mt-1">
+                                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                                <i class="fas fa-star text-yellow-400 text-xs"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Timeline Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="inline-block px-4 py-2 bg-primary-100 text-primary-600 rounded-full text-sm font-medium mb-4">
+                Our Journey
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-display font-bold text-secondary-900 mb-4">
+                Milestones in <span class="gradient-text">Sustainable Education</span>
+            </h2>
+        </div>
+        
+        <div class="relative">
+            <!-- Timeline line -->
+            <div class="hidden lg:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary-400 to-accent-400 transform -translate-x-1/2"></div>
+            
+            <div class="space-y-16 lg:space-y-0">
+                <!-- Timeline item 1 -->
+                <div class="relative timeline-item lg:grid lg:grid-cols-2 lg:gap-8" data-aos="fade-up">
+                    <div class="lg:pr-8 lg:mb-0 mb-6 lg:text-right">
+                        <h3 class="text-xl font-semibold text-secondary-900 mb-2">Founded at Albukhary International University</h3>
+                        <p class="text-secondary-600">January 2023</p>
+                    </div>
+                    <div class="lg:pl-8 lg:border-l-0 lg:border-t-0 border-l-2 border-t-2 border-primary-200 pt-6 pl-6 lg:pt-0 lg:pl-0 relative">
+                        <div class="absolute lg:-left-4 lg:top-1/2 lg:-translate-y-1/2 -top-4 left-0 w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center">
+                            <i class="fas fa-seedling text-white text-sm"></i>
+                        </div>
+                        <p class="text-secondary-600">
+                            Green Notes was born from a dorm room project aiming to reduce paper waste in university courses. Our MVP saved 5,000 sheets in the first semester.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Timeline item 2 -->
+                <div class="relative timeline-item lg:grid lg:grid-cols-2 lg:gap-8" data-aos="fade-up" data-aos-delay="100">
+                    <div class="lg:order-last lg:pl-8 lg:mb-0 mb-6">
+                        <h3 class="text-xl font-semibold text-secondary-900 mb-2">Seed Funding</h3>
+                        <p class="text-secondary-600">June 2023</p>
+                    </div>
+                    <div class="lg:pr-8 lg:border-r-0 lg:border-t-0 border-r-2 border-t-2 border-primary-200 pt-6 pr-6 lg:pt-0 lg:pr-0 relative lg:text-right">
+                        <div class="absolute lg:-right-4 lg:top-1/2 lg:-translate-y-1/2 -top-4 right-0 w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center">
+                            <i class="fas fa-dollar-sign text-white text-sm"></i>
+                        </div>
+                        <p class="text-secondary-600">
+                            Raised $2.5M in seed funding from prominent edtech and sustainability investors to expand our team and technology.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Timeline item 3 -->
+                <div class="relative timeline-item lg:grid lg:grid-cols-2 lg:gap-8" data-aos="fade-up" data-aos-delay="200">
+                    <div class="lg:pr-8 lg:mb-0 mb-6 lg:text-right">
+                        <h3 class="text-xl font-semibold text-secondary-900 mb-2">Platform Launch</h3>
+                        <p class="text-secondary-600">September 2023</p>
+                    </div>
+                    <div class="lg:pl-8 lg:border-l-0 lg:border-t-0 border-l-2 border-t-2 border-primary-200 pt-6 pl-6 lg:pt-0 lg:pl-0 relative">
+                        <div class="absolute lg:-left-4 lg:top-1/2 lg:-translate-y-1/2 -top-4 left-0 w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center">
+                            <i class="fas fa-rocket text-white text-sm"></i>
+                        </div>
+                        <p class="text-secondary-600">
+                            Officially launched our platform to the public, reaching 50,000 users in the first month across 120 universities.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Timeline item 4 -->
+                <div class="relative timeline-item lg:grid lg:grid-cols-2 lg:gap-8" data-aos="fade-up" data-aos-delay="300">
+                    <div class="lg:order-last lg:pl-8 lg:mb-0 mb-6">
+                        <h3 class="text-xl font-semibold text-secondary-900 mb-2">B Corp Certification</h3>
+                        <p class="text-secondary-600">January 2024</p>
+                    </div>
+                    <div class="lg:pr-8 lg:border-r-0 lg:border-t-0 border-r-2 border-t-2 border-primary-200 pt-6 pr-6 lg:pt-0 lg:pr-0 relative lg:text-right">
+                        <div class="absolute lg:-right-4 lg:top-1/2 lg:-translate-y-1/2 -top-4 right-0 w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center">
+                            <i class="fas fa-award text-white text-sm"></i>
+                        </div>
+                        <p class="text-secondary-600">
+                            Certified as a B Corporation, meeting rigorous standards of social and environmental performance.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Timeline item 5 -->
+                <div class="relative timeline-item lg:grid lg:grid-cols-2 lg:gap-8" data-aos="fade-up" data-aos-delay="400">
+                    <div class="lg:pr-8 lg:mb-0 mb-6 lg:text-right">
+                        <h3 class="text-xl font-semibold text-secondary-900 mb-2">Series A Funding</h3>
+                        <p class="text-secondary-600">May 2024</p>
+                    </div>
+                    <div class="lg:pl-8 lg:border-l-0 lg:border-t-0 border-l-2 border-t-2 border-primary-200 pt-6 pl-6 lg:pt-0 lg:pl-0 relative">
+                        <div class="absolute lg:-left-4 lg:top-1/2 lg:-translate-y-1/2 -top-4 left-0 w-8 h-8 rounded-full bg-primary-500 flex items-center justify-center">
+                            <i class="fas fa-chart-line text-white text-sm"></i>
+                        </div>
+                        <p class="text-secondary-600">
+                            Closed $15M Series A to expand internationally and develop AI-powered learning tools.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Team Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="inline-block px-4 py-2 bg-primary-100 text-primary-600 rounded-full text-sm font-medium mb-4">
+                Young Innovators
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-display font-bold text-secondary-900 mb-4">
+                Meet Our <span class="gradient-text">Dream Team</span>
+            </h2>
+            <p class="text-lg text-secondary-600 max-w-3xl mx-auto">
+                A passionate group of innovators driving the future of sustainable education
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Team Member 1 -->
+            <div class="bg-white rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                <img src="aqib-profile.jpg" alt="Aqib ALi" class="w-32 h-32 rounded-full mx-auto mb-4">
+                <h3 class="text-xl font-semibold text-secondary-900">Aqib ALi</h3>
+                <p class="text-secondary-600 mb-4">CEO & Co-Founder</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#" class="text-secondary-400 hover:text-primary-600">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="text-secondary-400 hover:text-primary-600">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-secondary-400 hover:text-primary-600">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Team Member 2 -->
+            <div class="bg-white rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="150">
+                <img src=".jpg" alt="Amira" class="w-32 h-32 rounded-full mx-auto mb-4">
+                <h3 class="text-xl font-semibold text-secondary-900">Amira</h3>
+                <p class="text-secondary-600 mb-4">CTO & Co-Founder</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#" class="text-secondary-400 hover:text-primary-600">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="text-secondary-400 hover:text-primary-600">
+                        <i class="fab fa-medium"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Team Member 3 -->
+            <div class="bg-white rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="200">
+                <img src=".jpg" alt="Alizada Fatima" class="w-32 h-32 rounded-full mx-auto mb-4">
+                <h3 class="text-xl font-semibold text-secondary-900">Alizada Fatima</h3>
+                <p class="text-secondary-600 mb-4">Lead Developer</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#" class="text-secondary-400 hover:text-primary-600">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-secondary-400 hover:text-primary-600">
+                        <i class="fab fa-stack-overflow"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Team Member 4 -->
+            <div class="bg-white rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="250">
+                <img src=".jpg" alt="Ghaidaa" class="w-32 h-32 rounded-full mx-auto mb-4">
+                <h3 class="text-xl font-semibold text-secondary-900">Ghaidaa</h3>
+                <p class="text-secondary-600 mb-4">Sustainability Lead</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#" class="text-secondary-400 hover:text-primary-600">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="text-secondary-400 hover:text-primary-600">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Team Member 5 -->
+            <div class="bg-white rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="300">
+                <img src=".jpg" alt="Precious" class="w-32 h-32 rounded-full mx-auto mb-4">
+                <h3 class="text-xl font-semibold text-secondary-900">Precious </h3>
+                <p class="text-secondary-600 mb-4">Growth Hacker</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#" class="text-secondary-400 hover:text-primary-600">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-secondary-400 hover:text-primary-600">
+                        <i class="fab fa-angellist"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Team Member 6 -->
+            <div class="bg-white rounded-xl p-6 text-center shadow-md hover:shadow-lg transition-all duration-300" data-aos="fade-up" data-aos-delay="350">
+                <img src=".jpg" alt="Nkhurlaini" class="w-32 h-32 rounded-full mx-auto mb-4">
+                <h3 class="text-xl font-semibold text-secondary-900">Nkhurlaini</h3>
+                <p class="text-secondary-600 mb-4">UX Designer</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#" class="text-secondary-400 hover:text-primary-600">
+                        <i class="fab fa-dribbble"></i>
+                    </a>
+                    <a href="#" class="text-secondary-400 hover:text-primary-600">
+                        <i class="fab fa-behance"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Solutions Section -->
+<section id="solutions" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="inline-block px-4 py-2 bg-primary-100 text-primary-600 rounded-full text-sm font-medium mb-4">
+                Solutions
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-display font-bold text-secondary-900 mb-4">
+                Tailored for <span class="gradient-text">Every Learner</span>
+            </h2>
+            <p class="text-lg text-secondary-600 max-w-3xl mx-auto">
+                Whether you're a student, educator, or institution, we have solutions designed to meet your needs.
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Solution 1 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl" data-aos="fade-up" data-aos-delay="100">
+                <div class="h-48 bg-gradient-to-r from-primary-500 to-accent-500 flex items-center justify-center">
+                    <i class="fas fa-user-graduate text-white text-6xl"></i>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-semibold text-secondary-900 mb-4">For Students</h3>
+                    <p class="text-secondary-600 mb-6">
+                        Access thousands of study materials, collaborate with classmates, and track your environmental impact.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Unlimited note sharing</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Study group tools</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Personal analytics</span>
+                        </li>
+                    </ul>
+                    <button class="w-full px-6 py-3 border-2 border-primary-500 text-primary-600 font-medium rounded-full hover:bg-primary-50 transition-all duration-300">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Solution 2 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl" data-aos="fade-up" data-aos-delay="200">
+                <div class="h-48 bg-gradient-to-r from-primary-500 to-accent-500 flex items-center justify-center">
+                    <i class="fas fa-chalkboard-teacher text-white text-6xl"></i>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-semibold text-secondary-900 mb-4">For Educators</h3>
+                    <p class="text-secondary-600 mb-6">
+                        Distribute materials, collect assignments, and engage students in a paperless classroom environment.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Course management</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Assignment collection</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Class analytics</span>
+                        </li>
+                    </ul>
+                    <button class="w-full px-6 py-3 border-2 border-primary-500 text-primary-600 font-medium rounded-full hover:bg-primary-50 transition-all duration-300">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Solution 3 -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl" data-aos="fade-up" data-aos-delay="300">
+                <div class="h-48 bg-gradient-to-r from-primary-500 to-accent-500 flex items-center justify-center">
+                    <i class="fas fa-university text-white text-6xl"></i>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-semibold text-secondary-900 mb-4">For Institutions</h3>
+                    <p class="text-secondary-600 mb-6">
+                        Campus-wide solutions to reduce paper consumption and track sustainability goals across departments.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Department analytics</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Single sign-on</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Custom branding</span>
+                        </li>
+                    </ul>
+                    <button class="w-full px-6 py-3 border-2 border-primary-500 text-primary-600 font-medium rounded-full hover:bg-primary-50 transition-all duration-300">
+                        Learn More
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="inline-block px-4 py-2 bg-primary-100 text-primary-600 rounded-full text-sm font-medium mb-4">
+                Testimonials
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-display font-bold text-secondary-900 mb-4">
+                What Our <span class="gradient-text">Community</span> Says
+            </h2>
+        </div>
+        
+        <div class="relative">
+            <div class="max-w-4xl mx-auto">
+                <!-- Testimonial 1 -->
+                <div x-show="activeTestimonial === 0" x-transition:enter="transition ease-out duration-300" 
+                     x-transition:enter-start="opacity-0 translate-y-4" 
+                     x-transition:enter-end="opacity-100 translate-y-0" 
+                     x-transition:leave="transition ease-in duration-300" 
+                     x-transition:leave-start="opacity-100 translate-y-0" 
+                     x-transition:leave-end="opacity-0 -translate-y-4" class="testimonial-card p-8 rounded-3xl">
+                    <div class="flex items-center mb-6">
+                        <img class="w-16 h-16 rounded-full" src="https://randomuser.me/api/portraits/women/32.jpg" alt="Emily Rodriguez">
+                        <div class="ml-4">
+                            <p class="text-lg font-medium text-secondary-900">Emily Rodriguez</p>
+                            <p class="text-secondary-600">Biology Student, Stanford University</p>
+                            <div class="flex mt-1">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-secondary-600 text-lg italic">
+                        "Green Notes has completely transformed how I study. Not only have I saved money on textbooks and paper, but collaborating with classmates is seamless. I've reduced my paper usage by 95% this semester!"
+                    </p>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div x-show="activeTestimonial === 1" x-transition:enter="transition ease-out duration-300" 
+                     x-transition:enter-start="opacity-0 translate-y-4" 
+                     x-transition:enter-end="opacity-100 translate-y-0" 
+                     x-transition:leave="transition ease-in duration-300" 
+                     x-transition:leave-start="opacity-100 translate-y-0" 
+                     x-transition:leave-end="opacity-0 -translate-y-4" class="testimonial-card p-8 rounded-3xl">
+                    <div class="flex items-center mb-6">
+                        <img class="w-16 h-16 rounded-full" src="https://randomuser.me/api/portraits/men/54.jpg" alt="David Chen">
+                        <div class="ml-4">
+                            <p class="text-lg font-medium text-secondary-900">David Chen</p>
+                            <p class="text-secondary-600">Professor, MIT</p>
+                            <div class="flex mt-1">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-secondary-600 text-lg italic">
+                        "As an educator, I'm always looking for ways to make my courses more sustainable. Green Notes allows me to distribute materials, collect assignments, and provide feedback without printing a single page. The student engagement has been phenomenal."
+                    </p>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div x-show="activeTestimonial === 2" x-transition:enter="transition ease-out duration-300" 
+                     x-transition:enter-start="opacity-0 translate-y-4" 
+                     x-transition:enter-end="opacity-100 translate-y-0" 
+                     x-transition:leave="transition ease-in duration-300" 
+                     x-transition:leave-start="opacity-100 translate-y-0" 
+                     x-transition:leave-end="opacity-0 -translate-y-4" class="testimonial-card p-8 rounded-3xl">
+                    <div class="flex items-center mb-6">
+                        <img class="w-16 h-16 rounded-full" src="https://randomuser.me/api/portraits/women/68.jpg" alt="Maria Gonzalez">
+                        <div class="ml-4">
+                            <p class="text-lg font-medium text-secondary-900">Maria Gonzalez</p>
+                            <p class="text-secondary-600">Sustainability Director, UC Berkeley</p>
+                            <div class="flex mt-1">
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                                <i class="fas fa-star text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-secondary-600 text-lg italic">
+                        "Implementing Green Notes campus-wide has been instrumental in helping us meet our sustainability goals. We've reduced paper consumption by 78% in just one academic year while improving student collaboration and resource sharing."
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Testimonial Controls -->
+            <div class="flex justify-center mt-8 space-x-3">
+                <button @click="activeTestimonial = 0; stopTestimonialRotation(); startTestimonialRotation();" 
+                        class="w-3 h-3 rounded-full focus:outline-none transition-colors duration-300" 
+                        :class="{ 'bg-primary-600': activeTestimonial === 0, 'bg-gray-300': activeTestimonial !== 0 }">
+                </button>
+                <button @click="activeTestimonial = 1; stopTestimonialRotation(); startTestimonialRotation();" 
+                        class="w-3 h-3 rounded-full focus:outline-none transition-colors duration-300" 
+                        :class="{ 'bg-primary-600': activeTestimonial === 1, 'bg-gray-300': activeTestimonial !== 1 }">
+                </button>
+                <button @click="activeTestimonial = 2; stopTestimonialRotation(); startTestimonialRotation();" 
+                        class="w-3 h-3 rounded-full focus:outline-none transition-colors duration-300" 
+                        :class="{ 'bg-primary-600': activeTestimonial === 2, 'bg-gray-300': activeTestimonial !== 2 }">
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pricing Section -->
+<section id="pricing" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="inline-block px-4 py-2 bg-primary-100 text-primary-600 rounded-full text-sm font-medium mb-4">
+                Pricing
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-display font-bold text-secondary-900 mb-4">
+                Simple, Transparent <span class="gradient-text">Pricing</span>
+            </h2>
+            <p class="text-lg text-secondary-600 max-w-3xl mx-auto">
+                Choose the plan that fits your needs. All plans include our core features.
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <!-- Basic Plan -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-gray-100 hover:border-primary-500 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                <div class="p-8">
+                    <h3 class="text-xl font-semibold text-secondary-900 mb-2">Basic</h3>
+                    <p class="text-secondary-600 mb-6">Perfect for individual students</p>
+                    <div class="mb-8">
+                        <span class="text-4xl font-bold text-secondary-900">$4.99</span>
+                        <span class="text-secondary-600">/month</span>
+                    </div>
+                    <button class="w-full px-6 py-3 border-2 border-primary-500 text-primary-600 font-medium rounded-full hover:bg-primary-50 transition-all duration-300">
+                        Get Started
+                    </button>
+                </div>
+                <div class="border-t border-gray-200 p-8 bg-gray-50">
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Unlimited note sharing</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">5GB storage</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Basic collaboration</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Personal analytics</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Pro Plan (Featured) -->
+            <div class="bg-white rounded-xl shadow-xl overflow-hidden border-2 border-primary-500 transform hover:-translate-y-2 transition-all duration-300" data-aos="fade-up">
+                <div class="bg-primary-500 text-white text-center py-2">
+                    <p class="text-sm font-medium">Most Popular</p>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-semibold text-secondary-900 mb-2">Pro</h3>
+                    <p class="text-secondary-600 mb-6">For serious students and small groups</p>
+                    <div class="mb-8">
+                        <span class="text-4xl font-bold text-secondary-900">$9.99</span>
+                        <span class="text-secondary-600">/month</span>
+                    </div>
+                    <button class="w-full px-6 py-3 bg-gradient-to-r from-primary-500 to-accent-500 text-white font-medium rounded-full hover:shadow-lg transition-all duration-300">
+                        Get Started
+                    </button>
+                </div>
+                <div class="border-t border-gray-200 p-8 bg-gray-50">
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Everything in Basic</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">50GB storage</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Advanced collaboration</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Study group tools</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">AI study assistant</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Institution Plan -->
+            <div class="bg-white rounded-xl shadow-lg overflow-hidden border-2 border-gray-100 hover:border-primary-500 transition-all duration-300" data-aos="fade-up" data-aos-delay="100">
+                <div class="p-8">
+                    <h3 class="text-xl font-semibold text-secondary-900 mb-2">Institution</h3>
+                    <p class="text-secondary-600 mb-6">For schools and universities</p>
+                    <div class="mb-8">
+                        <span class="text-4xl font-bold text-secondary-900">Custom</span>
+                    </div>
+                    <button class="w-full px-6 py-3 border-2 border-primary-500 text-primary-600 font-medium rounded-full hover:bg-primary-50 transition-all duration-300">
+                        Contact Sales
+                    </button>
+                </div>
+                <div class="border-t border-gray-200 p-8 bg-gray-50">
+                    <ul class="space-y-4">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Everything in Pro</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Unlimited storage</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Admin dashboard</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Single sign-on</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Custom branding</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-primary-500 mr-3"></i>
+                            <span class="text-secondary-600">Dedicated support</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-16 text-center" data-aos="fade-up">
+            <p class="text-secondary-600 mb-6">Need help deciding? Compare all plan features</p>
+            <button class="px-6 py-3 border-2 border-primary-500 text-primary-600 font-medium rounded-full hover:bg-primary-50 transition-all duration-300 inline-flex items-center">
+                <span>Compare Plans</span>
+                <i class="fas fa-arrow-right ml-3"></i>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Resources Section -->
+<section id="resources" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="inline-block px-4 py-2 bg-primary-100 text-primary-600 rounded-full text-sm font-medium mb-4">
+                Resources
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-display font-bold text-secondary-900 mb-4">
+                Learning <span class="gradient-text">Resources</span>
+            </h2>
+            <p class="text-lg text-secondary-600 max-w-3xl mx-auto">
+                Explore our library of study materials, sustainability guides, and educational content.
+            </p>
+        </div>
+        
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Resource 1 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg" data-aos="fade-up" data-aos-delay="100">
+                <div class="h-48 bg-gray-200 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1422&q=80" alt="Study Guide" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center mb-4">
+                        <span class="px-3 py-1 bg-primary-100 text-primary-600 rounded-full text-xs font-medium">Study Guide</span>
+                        <span class="ml-3 text-sm text-secondary-500">PDF • 12MB</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-secondary-900 mb-3">Organic Chemistry Exam Prep</h3>
+                    <p class="text-secondary-600 mb-5">Comprehensive notes covering all major topics for first-year organic chemistry courses.</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <i class="fas fa-download text-secondary-400 mr-2"></i>
+                            <span class="text-sm text-secondary-500">1,842 downloads</span>
+                        </div>
+                        <button class="text-primary-600 hover:text-primary-700 font-medium flex items-center">
+                            Download
+                            <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Resource 2 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg" data-aos="fade-up" data-aos-delay="200">
+                <div class="h-48 bg-gray-200 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Sustainability Guide" class="h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center mb-4">
+                        <span class="px-3 py-1 bg-primary-100 text-primary-600 rounded-full text-xs font-medium">Guide</span>
+                        <span class="ml-3 text-sm text-secondary-500">PDF • 8MB</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-secondary-900 mb-3">Sustainable Campus Initiative</h3>
+                    <p class="text-secondary-600 mb-5">How to implement paperless solutions in educational institutions with measurable impact.</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <i class="fas fa-download text-secondary-400 mr-2"></i>
+                            <span class="text-sm text-secondary-500">932 downloads</span>
+                        </div>
+                        <button class="text-primary-600 hover:text-primary-700 font-medium flex items-center">
+                            Download
+                            <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Resource 3 -->
+            <div class="bg-white rounded-xl shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg" data-aos="fade-up" data-aos-delay="300">
+                <div class="h-48 bg-gray-200 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c8113291bf8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Video Course" class="w-full h-full object-cover">
+                </div>
+                <div class="p-6">
+                    <div class="flex items-center mb-4">
+                        <span class="px-3 py-1 bg-primary-100 text-primary-600 rounded-full text-xs font-medium">Video Course</span>
+                        <span class="ml-3 text-sm text-secondary-500">5 Lessons</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-secondary-900 mb-3">Digital Note-Taking Masterclass</h3>
+                    <p class="text-secondary-600 mb-5">Learn professional techniques for effective digital note-taking and organization.</p>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center">
+                            <i class="fas fa-play-circle text-secondary-400 mr-2"></i>
+                            <span class="text-sm text-secondary-500">2,451 views</span>
+                        </div>
+                        <button class="text-primary-600 hover:text-primary-700 font-medium flex items-center">
+                            Watch Now
+                            <i class="fas fa-arrow-right ml-2 text-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-16 text-center" data-aos="fade-up">
+            <button class="px-8 py-4 bg-gradient-to-r from-primary-500 to-accent-500 text-white font-medium rounded-full hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 inline-flex items-center">
+                <span>Browse All Resources</span>
+                <i class="fas fa-arrow-right ml-3"></i>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="inline-block px-4 py-2 bg-primary-100 text-primary-600 rounded-full text-sm font-medium mb-4">
+                FAQs
+            </span>
+            <h2 class="text-3xl sm:text-4xl font-display font-bold text-secondary-900 mb-4">
+                Frequently Asked <span class="gradient-text">Questions</span>
+            </h2>
+            <p class="text-lg text-secondary-600 max-w-3xl mx-auto">
+                Find answers to common questions about Green Notes and sustainable learning.
+            </p>
+        </div>
+        
+        <div class="max-w-4xl mx-auto" data-aos="fade-up">
+            <div class="space-y-6">
+                <!-- FAQ Item 1 -->
+                <div x-data="{ open: false }" class="border border-gray-200 rounded-xl overflow-hidden">
+                    <button @click="open = !open" class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-300">
+                        <span class="text-lg font-medium text-secondary-900">How does Green Notes help the environment?</span>
+                        <i :class="{ 'fa-chevron-up': open, 'fa-chevron-down': !open }" class="fas text-primary-500 transition-transform duration-300"></i>
+                    </button>
+                    <div x-show="open" x-collapse class="px-6 pb-5 text-secondary-600">
+                        <p>Green Notes significantly reduces paper consumption by providing a comprehensive digital alternative to traditional paper notes. On average, our users reduce their paper usage by 92%. We also offset all our carbon emissions, use eco-friendly data centers, and have a tree-planting initiative for every premium subscription.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 2 -->
+                <div x-data="{ open: false }" class="border border-gray-200 rounded-xl overflow-hidden">
+                    <button @click="open = !open" class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-300">
+                        <span class="text-lg font-medium text-secondary-900">Is my data secure on Green Notes?</span>
+                        <i :class="{ 'fa-chevron-up': open, 'fa-chevron-down': !open }" class="fas text-primary-500 transition-transform duration-300"></i>
+                    </button>
+                    <div x-show="open" x-collapse class="px-6 pb-5 text-secondary-600">
+                        <p>Absolutely. We use end-to-end encryption for all your notes and documents. Our platform is FERPA compliant for educational data and undergoes regular security audits. We also offer two-factor authentication and detailed permission controls for shared content.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 3 -->
+                <div x-data="{ open: false }" class="border border-gray-200 rounded-xl overflow-hidden">
+                    <button @click="open = !open" class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-300">
+                        <span class="text-lg font-medium text-secondary-900">Can I access my notes offline?</span>
+                        <i :class="{ 'fa-chevron-up': open, 'fa-chevron-down': !open }" class="fas text-primary-500 transition-transform duration-300"></i>
+                    </button>
+                    <div x-show="open" x-collapse class="px-6 pb-5 text-secondary-600">
+                        <p>Yes! Our mobile apps allow you to download notes for offline access. Any changes you make offline will automatically sync when you reconnect to the internet. This feature is available on all paid plans.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 4 -->
+                <div x-data="{ open: false }" class="border border-gray-200 rounded-xl overflow-hidden">
+                    <button @click="open = !open" class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-300">
+                        <span class="text-lg font-medium text-secondary-900">How does the AI study assistant work?</span>
+                        <i :class="{ 'fa-chevron-up': open, 'fa-chevron-down': !open }" class="fas text-primary-500 transition-transform duration-300"></i>
+                    </button>
+                    <div x-show="open" x-collapse class="px-6 pb-5 text-secondary-600">
+                        <p>Our AI analyzes your notes to identify key concepts, generate summaries, create flashcards, and even suggest practice questions. It learns from your study patterns to provide personalized recommendations. The more you use it, the better it adapts to your learning style.</p>
+                    </div>
+                </div>
+                
+                <!-- FAQ Item 5 -->
+                <div x-data="{ open: false }" class="border border-gray-200 rounded-xl overflow-hidden">
+                    <button @click="open = !open" class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-gray-50 transition-colors duration-300">
+                        <span class="text-lg font-medium text-secondary-900">What's your refund policy?</span>
+                        <i :class="{ 'fa-chevron-up': open, 'fa-chevron-down': !open }" class="fas text-primary-500 transition-transform duration-300"></i>
+                    </button>
+                    <div x-show="open" x-collapse class="px-6 pb-5 text-secondary-600">
+                        <p>We offer a 30-day money-back guarantee for all annual subscriptions. If you're not satisfied with our service, simply contact our support team within 30 days of purchase for a full refund. Monthly subscriptions can be canceled at any time without additional charges.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12 text-center">
+                <p class="text-secondary-600 mb-6">Still have questions? We're happy to help.</p>
+                <a href="#contact" class="px-6 py-3 border-2 border-primary-500 text-primary-600 font-medium rounded-full hover:bg-primary-50 transition-all duration-300 inline-flex items-center">
+                    <span>Contact Support</span>
+                    <i class="fas fa-arrow-right ml-3"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20 bg-gradient-to-r from-primary-600 to-accent-600 text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center" data-aos="fade-up">
+            <h2 class="text-3xl sm:text-4xl font-display font-bold mb-6">Ready to Transform Your Learning Experience?</h2>
+            <p class="text-xl text-primary-100 max-w-3xl mx-auto mb-10">Join thousands of students and educators making a difference while achieving academic success.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <button class="px-8 py-4 bg-white text-primary-600 font-medium rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:-translate-y-1">
+                    Get Started Free
+                </button>
+                <button class="px-8 py-4 border-2 border-white text-white font-medium rounded-full hover:bg-white hover:bg-opacity-10 transition-all duration-300 transform hover:-translate-y-1">
+                    Schedule Demo
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-right">
+                <span class="inline-block px-4 py-2 bg-primary-100 text-primary-600 rounded-full text-sm font-medium mb-4">
+                    Contact Us
+                </span>
+                <h2 class="text-3xl sm:text-4xl font-display font-bold text-secondary-900 mb-6">
+                    Get in <span class="gradient-text">Touch</span>
+                </h2>
+                <p class="text-lg text-secondary-600 mb-8">
+                    Have questions about Green Notes or want to learn more about our solutions? Our team is here to help.
+                </p>
+                
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mt-1">
+                            <div class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center">
+                                <i class="fas fa-map-marker-alt text-primary-600"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-medium text-secondary-900">Our Office</h3>
+                            <p class="text-secondary-600 mt-1">123 Green Street, Eco City, CA 94107</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mt-1">
+                            <div class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center">
+                                <i class="fas fa-envelope text-primary-600"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-medium text-secondary-900">Email Us</h3>
+                            <p class="text-secondary-600 mt-1">hello@greennotes.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mt-1">
+                            <div class="w-12 h-12 rounded-full bg-primary-100 flex items-center justify-center">
+                                <i class="fas fa-phone-alt text-primary-600"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-medium text-secondary-900">Call Us</h3>
+                            <p class="text-secondary-600 mt-1">+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div data-aos="fade-left">
+                <form class="bg-gray-50 rounded-2xl p-8 shadow-lg">
+                    <div class="grid sm:grid-cols-2 gap-6">
+                        <div>
+                            <label for="first-name" class="block text-sm font-medium text-secondary-700 mb-1">First Name</label>
+                            <input type="text" id="first-name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        </div>
+                        <div>
+                            <label for="last-name" class="block text-sm font-medium text-secondary-700 mb-1">Last Name</label>
+                            <input type="text" id="last-name" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <label for="email" class="block text-sm font-medium text-secondary-700 mb-1">Email</label>
+                        <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                    </div>
+                    <div class="mt-6">
+                        <label for="subject" class="block text-sm font-medium text-secondary-700 mb-1">Subject</label>
+                        <select id="subject" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
+                            <option>General Inquiry</option>
+                            <option>Sales Question</option>
+                            <option>Technical Support</option>
+                            <option>Partnership</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <div class="mt-6">
+                        <label for="message" class="block text-sm font-medium text-secondary-700 mb-1">Message</label>
+                        <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"></textarea>
+                    </div>
+                    <div class="mt-8">
+                        <button type="submit" class="w-full px-6 py-4 bg-gradient-to-r from-primary-500 to-accent-500 text-white font-medium rounded-full hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-secondary-900 text-white pt-20 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
+            <div class="lg:col-span-2">
+                <div class="flex items-center mb-6">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-primary-500 to-accent-500 flex items-center justify-center text-white font-bold text-xl">GN</div>
+                    <span class="ml-3 text-2xl font-display font-bold">Green Notes</span>
+                </div>
+                <p class="text-secondary-300 mb-6">
+                    Making education sustainable and accessible for all through innovative technology and community-driven solutions.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">
+                        <i class="fab fa-facebook-f text-xl"></i>
+                    </a>
+                    <a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">
+                        <i class="fab fa-linkedin-in text-xl"></i>
+                    </a>
+                    <a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                    <a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-semibold mb-6">Product</h3>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">Features</a></li>
+                    <li><a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">Pricing</a></li>
+                    <li><a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">Solutions</a></li>
+                    <li><a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">Resources</a></li>
+                    <li><a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">Roadmap</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-semibold mb-6">Company</h3>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">About Us</a></li>
+                    <li><a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">Careers</a></li>
+                    <li><a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">Press</a></li>
+                    <li><a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">Blog</a></li>
+                    <li><a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h3 class="text-lg font-semibold mb-6">Legal</h3>
+                <ul class="space-y-3">
+                    <li><a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">Privacy Policy</a></li>
+                    <li><a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">Terms of Service</a></li>
+                    <li><a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">Cookie Policy</a></li>
+                    <li><a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">GDPR</a></li>
+                    <li><a href="#" class="text-secondary-300 hover:text-white transition-colors duration-300">Security</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="border-t border-secondary-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <p class="text-secondary-400 mb-4 md:mb-0">
+                &copy; 2023 Green Notes, Inc. All rights reserved.
+            </p>
+            <div class="flex space-x-6">
+                <a href="#" class="text-secondary-400 hover:text-white transition-colors duration-300 text-sm">Privacy Policy</a>
+                <a href="#" class="text-secondary-400 hover:text-white transition-colors duration-300 text-sm">Terms of Service</a>
+                <a href="#" class="text-secondary-400 hover:text-white transition-colors duration-300 text-sm">Cookie Policy</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Back to Top Button -->
+<button x-data="{ show: false }" 
+        @scroll.window="show = window.scrollY > 300" 
+        @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
+        :class="{ 'opacity-100': show, 'opacity-0': !show }"
+        class="fixed bottom-8 right-8 w-12 h-12 bg-gradient-to-r from-primary-500 to-accent-500 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:shadow-xl">
+    <i class="fas fa-arrow-up"></i>
+</button>
+
+<script>
+    // Initialize AOS animation library
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true
+    });
+</script>
+</body>
+</html>
