@@ -1073,114 +1073,272 @@
     });
 </script>
 
-<!-- Solutions Section -->
-<section id="solutions" class="py-20 bg-white">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+@import url('https://unpkg.com/aos@2.3.1/dist/aos.css');
+
+:root {
+    --crystal: #FFFFFF;
+    --obsidian: #0A0A0A;
+    --amethyst: #9B5DE5;
+    --sapphire: #4361EE;
+    --aqua: #00F5D4;
+    --transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.premium-section {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(160deg, #FFFFFF 0%, #F8F9FF 100%);
+}
+
+.gradient-text {
+    background: linear-gradient(45deg, var(--amethyst), var(--sapphire));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.ultra-card {
+    background: var(--crystal);
+    border-radius: 2.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.03);
+    transition: var(--transition);
+    overflow: hidden;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.4);
+}
+
+.ultra-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, 
+        rgba(255,255,255,0.6) 0%, 
+        rgba(255,255,255,0.3) 50%, 
+        rgba(255,255,255,0.6) 100%);
+    mix-blend-mode: soft-light;
+}
+
+.ultra-card:hover {
+    transform: translateY(-10px) rotate(0.5deg);
+    box-shadow: 0 40px 80px -20px rgba(155,93,229,0.08);
+}
+
+.card-image {
+    height: 320px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 2rem 2rem 0 0;
+    overflow: hidden;
+    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.card-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, 
+        rgba(255,255,255,0) 60%, 
+        rgba(255,255,255,0.95) 100%);
+}
+
+.ultra-card:hover .card-image {
+    transform: scale(1.03);
+}
+
+.luxury-glow {
+    position: absolute;
+    inset: -2px;
+    background: radial-gradient(600px circle at var(--x) var(--y), 
+        rgba(155,93,229,0.05) 0%, 
+        transparent 60%);
+    pointer-events: none;
+}
+
+.feature-list li {
+    position: relative;
+    padding-left: 2.5rem;
+    transition: var(--transition);
+}
+
+.feature-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.4em;
+    width: 1.4em;
+    height: 1.4em;
+    background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="%239B5DE5"/></svg>');
+    transition: transform 0.3s ease;
+}
+
+.feature-list li:hover {
+    transform: translateX(8px);
+}
+
+.luxury-button {
+    background: linear-gradient(135deg, var(--amethyst) 0%, var(--sapphire) 100%);
+    position: relative;
+    overflow: hidden;
+    transition: var(--transition);
+    border: 2px solid rgba(155,93,229,0.1);
+}
+
+.luxury-button::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, 
+        transparent 20%, 
+        rgba(255,255,255,0.25) 50%, 
+        transparent 80%);
+    transform: rotate(45deg);
+    animation: shine 6s infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-20px) scale(0.98); }
+}
+
+.geometric-pattern {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(rgba(155,93,229,0.03) 1px, transparent 0),
+        radial-gradient(rgba(155,93,229,0.03) 1px, transparent 0);
+    background-size: 40px 40px;
+    background-position: 0 0, 20px 20px;
+    opacity: 0.4;
+}
+</style>
+
+<section id="solutions" class="premium-section relative py-32">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16" data-aos="fade-up">
-            <span class="inline-block px-4 py-2 bg-primary-100 text-primary-600 rounded-full text-sm font-medium mb-4">
+        <div class="text-center mb-24" data-aos="fade-up">
+            <span class="inline-block px-6 py-3 bg-white text-[var(--amethyst)] rounded-full text-sm font-bold mb-6 shadow-xl border border-[rgba(155,93,229,0.1)]">
                 Solutions
             </span>
-            <h2 class="text-3xl sm:text-4xl font-display font-bold text-secondary-900 mb-4">
+            <h2 class="text-5xl sm:text-6xl font-bold text-[var(--obsidian)] mb-5">
                 Tailored for <span class="gradient-text">Every Learner</span>
             </h2>
-            <p class="text-lg text-secondary-600 max-w-3xl mx-auto">
-                Whether you're a student, educator, or institution, we have solutions designed to meet your needs.
+            <p class="text-xl text-[#555] max-w-3xl mx-auto leading-relaxed">
+               Whether you're a student, educator, or institution, we have solutions designed to meet your needs.
             </p>
         </div>
-        
+
         <div class="grid md:grid-cols-3 gap-8">
-            <!-- Solution 1 -->
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl" data-aos="fade-up" data-aos-delay="100">
-                <div class="h-48 bg-gradient-to-r from-primary-500 to-accent-500 flex items-center justify-center">
-                    <i class="fas fa-user-graduate text-white text-6xl"></i>
+            <!-- For Student  -->
+            <div class="ultra-card group" data-aos="fade-up" @mousemove="updateGlow">
+                <div class="luxury-glow" :style="glowStyle"></div>
+                <div class="card-image" style="background-image: url('sss.jpg')">
+                    <div class="geometric-pattern"></div>
                 </div>
-                <div class="p-8">
-                    <h3 class="text-xl font-semibold text-secondary-900 mb-4">For Students</h3>
-                    <p class="text-secondary-600 mb-6">
+                <div class="p-8 relative">
+                    <h3 class="text-2xl font-bold text-[var(--obsidian)] mb-6">Student Excellence</h3>
+                    <p class="text-[#555] mb-8 leading-relaxed">
                         Access thousands of study materials, collaborate with classmates, and track your environmental impact.
                     </p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-primary-500 mr-3"></i>
-                            <span class="text-secondary-600">Unlimited note sharing</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-primary-500 mr-3"></i>
-                            <span class="text-secondary-600">Study group tools</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-primary-500 mr-3"></i>
-                            <span class="text-secondary-600">Personal analytics</span>
-                        </li>
+                    <ul class="feature-list space-y-5 mb-10">
+                        <li class="text-[#444]">Smart Note Sharing</li>
+                        <li class="text-[#444]">Collaborative Workspaces</li>
+                        <li class="text-[#444]">Learning Analytics</li>
                     </ul>
-                    <button class="w-full px-6 py-3 border-2 border-primary-500 text-primary-600 font-medium rounded-full hover:bg-primary-50 transition-all duration-300">
-                        Learn More
+                    <button class="luxury-button w-full px-8 py-4 text-white font-bold rounded-xl">
+                        Explore Student Tools
                     </button>
                 </div>
             </div>
-            
-            <!-- Solution 2 -->
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl" data-aos="fade-up" data-aos-delay="200">
-                <div class="h-48 bg-gradient-to-r from-primary-500 to-accent-500 flex items-center justify-center">
-                    <i class="fas fa-chalkboard-teacher text-white text-6xl"></i>
+
+            <!-- For Educators -->
+            <div class="ultra-card group" data-aos="fade-up" data-aos-delay="100">
+                <div class="luxury-glow" :style="glowStyle"></div>
+                <div class="card-image" style="background-image: url('e.jpg')">
+                    <div class="geometric-pattern"></div>
                 </div>
-                <div class="p-8">
-                    <h3 class="text-xl font-semibold text-secondary-900 mb-4">For Educators</h3>
-                    <p class="text-secondary-600 mb-6">
-                        Distribute materials, collect assignments, and engage students in a paperless classroom environment.
+                <div class="p-8 relative">
+                    <h3 class="text-2xl font-bold text-[var(--obsidian)] mb-6">Educator Mastery</h3>
+                    <p class="text-[#555] mb-8 leading-relaxed">
+                        Advanced classroom management with real-time collaboration and performance insights.
                     </p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-primary-500 mr-3"></i>
-                            <span class="text-secondary-600">Course management</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-primary-500 mr-3"></i>
-                            <span class="text-secondary-600">Assignment collection</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-primary-500 mr-3"></i>
-                            <span class="text-secondary-600">Class analytics</span>
-                        </li>
+                    <ul class="feature-list space-y-5 mb-10">
+                        <li class="text-[#444]">Course Automation</li>
+                        <li class="text-[#444]">Assignment Analytics</li>
+                        <li class="text-[#444]">Engagement Tracking</li>
                     </ul>
-                    <button class="w-full px-6 py-3 border-2 border-primary-500 text-primary-600 font-medium rounded-full hover:bg-primary-50 transition-all duration-300">
-                        Learn More
+                    <button class="luxury-button w-full px-8 py-4 text-white font-bold rounded-xl">
+                        Discover Educator Solutions
                     </button>
                 </div>
             </div>
-            
-            <!-- Solution 3 -->
-            <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl" data-aos="fade-up" data-aos-delay="300">
-                <div class="h-48 bg-gradient-to-r from-primary-500 to-accent-500 flex items-center justify-center">
-                    <i class="fas fa-university text-white text-6xl"></i>
+
+            <!-- For Institutions -->
+            <div class="ultra-card group" data-aos="fade-up" data-aos-delay="200">
+                <div class="luxury-glow" :style="glowStyle"></div>
+                <div class="card-image" style="background-image: url('i.jpg')">
+                    <div class="geometric-pattern"></div>
                 </div>
-                <div class="p-8">
-                    <h3 class="text-xl font-semibold text-secondary-900 mb-4">For Institutions</h3>
-                    <p class="text-secondary-600 mb-6">
-                        Campus-wide solutions to reduce paper consumption and track sustainability goals across departments.
+                <div class="p-8 relative">
+                    <h3 class="text-2xl font-bold text-[var(--obsidian)] mb-6">Institutional Leadership</h3>
+                    <p class="text-[#555] mb-8 leading-relaxed">
+                        Comprehensive sustainability tracking and institution-wide collaboration systems.
                     </p>
-                    <ul class="space-y-3 mb-8">
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-primary-500 mr-3"></i>
-                            <span class="text-secondary-600">Department analytics</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-primary-500 mr-3"></i>
-                            <span class="text-secondary-600">Single sign-on</span>
-                        </li>
-                        <li class="flex items-center">
-                            <i class="fas fa-check-circle text-primary-500 mr-3"></i>
-                            <span class="text-secondary-600">Custom branding</span>
-                        </li>
+                    <ul class="feature-list space-y-5 mb-10">
+                        <li class="text-[#444]">Department Analytics</li>
+                        <li class="text-[#444]">Enterprise Security</li>
+                        <li class="text-[#444]">Custom Integration</li>
                     </ul>
-                    <button class="w-full px-6 py-3 border-2 border-primary-500 text-primary-600 font-medium rounded-full hover:bg-primary-50 transition-all duration-300">
-                        Learn More
+                    <button class="luxury-button w-full px-8 py-4 text-white font-bold rounded-xl">
+                        View Enterprise Solutions
                     </button>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Premium Decorations -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="geometric-pattern"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-white opacity-30"></div>
+    </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    // Dynamic Glow Effect
+    document.querySelectorAll('.ultra-card').forEach(card => {
+        const glow = card.querySelector('.luxury-glow');
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            glow.style.setProperty('--x', `${x}px`);
+            glow.style.setProperty('--y', `${y}px`);
+        });
+    });
+
+    // Initialize AOS
+    AOS.init({
+        duration: 1200,
+        once: true,
+        easing: 'ease-in-out-quart',
+        offset: 150
+    });
+
+    // Parallax Effect
+    window.addEventListener('scroll', () => {
+        document.querySelectorAll('.card-image').forEach(el => {
+            const scrollY = window.pageYOffset;
+            el.style.transform = `translateY(${scrollY * 0.1}px)`;
+        });
+    });
+});
+</script>
 
 <!-- Testimonials Section -->
 <section class="py-20 bg-gray-50">
