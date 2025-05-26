@@ -969,6 +969,111 @@
 </section>
 
 <style>
+    /* Typewriter Animation */
+    .typewrite {
+        border-right: 2px solid #10B981;
+        animation: blink 1s step-end infinite;
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    @keyframes typewriter {
+        from { width: 0 }
+        to { width: 100% }
+    }
+
+    @keyframes blink {
+        50% { border-color: transparent }
+    }
+
+    /* Social Icons */
+    .social-icon {
+        @apply text-gray-400 hover:text-white transition-all duration-500;
+        transform: scale(1);
+    }
+
+    .social-icon:hover {
+        transform: scale(1.15);
+        text-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
+    }
+
+    .social-icon i {
+        @apply transition-all duration-300;
+    }
+
+    /* Card Animation */
+    [data-aos="card-float"] {
+        transform: translateY(50px) scale(0.95);
+        opacity: 0;
+        transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    [data-aos="card-float"].aos-animate {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+
+    /* Particle Animation */
+    @keyframes particle-float {
+        0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+        33% { transform: translateY(-30px) rotate(5deg) scale(1.1); }
+        66% { transform: translateY(20px) rotate(-5deg) scale(0.9); }
+    }
+</style>
+
+<script>
+    // Enhanced Typewriter Class
+    class TypeWriter {
+        constructor(element, period, texts) {
+            this.element = element;
+            this.period = parseInt(period, 10) || 2000;
+            this.texts = texts;
+            this.loopNum = 0;
+            this.txt = '';
+            this.isDeleting = false;
+            this.tick();
+        }
+
+        tick() {
+            const current = this.loopNum % this.texts.length;
+            const fullTxt = this.texts[current];
+
+            if(this.isDeleting) {
+                this.txt = fullTxt.substring(0, this.txt.length - 1);
+            } else {
+                this.txt = fullTxt.substring(0, this.txt.length + 1);
+            }
+
+            this.element.innerHTML = `<span class="wrap">${this.txt}</span>`;
+
+            let delta = 200 - Math.random() * 100;
+
+            if(this.isDeleting) delta /= 2;
+
+            if(!this.isDeleting && this.txt === fullTxt) {
+                delta = this.texts.length > 1 ? this.period : 1;
+                this.isDeleting = true;
+            } else if(this.isDeleting && this.txt === '') {
+                this.isDeleting = false;
+                this.loopNum++;
+                delta = 500;
+            }
+
+            setTimeout(() => this.tick(), delta);
+        }
+    }
+
+    // Initialize All Typewriters
+    document.addEventListener('DOMContentLoaded', () => {
+        const elements = document.getElementsByClassName('typewrite');
+        Array.from(elements).forEach(element => {
+            new TypeWriter(element, element.dataset.period, JSON.parse(element.dataset.text));
+        });
+    });
+</script>
+
+<style>
 :root {
     --platinum: #FDFDFD;
     --obsidian: #0A0A0A;
@@ -1169,7 +1274,7 @@
                     <div class="luxury-badge">AI-Powered</div>
                 </div>
                 <div class="p-10">
-                    <h3 class="text-3xl font-bold text-[var(--obsidian)] mb-8">Student Prodigy</h3>
+                    <h3 class="text-3xl font-bold text-[var(--obsidian)] mb-8">For Student</h3>
                     <ul class="luxury-feature-list space-y-6">
                         <li class="text-[#444]">Smart Neural Analytics</li>
                         <li class="text-[#444]">3D Collaboration Spaces</li>
@@ -1188,7 +1293,7 @@
                     <div class="luxury-badge">AI-Analytics</div>
                 </div>
                 <div class="p-10">
-                    <h3 class="text-3xl font-bold text-[var(--obsidian)] mb-8">Educator Visionary</h3>
+                    <h3 class="text-3xl font-bold text-[var(--obsidian)] mb-8">For Educator</h3>
                     <ul class="luxury-feature-list space-y-6">
                         <li class="text-[#444]">Holographic Classrooms</li>
                         <li class="text-[#444]">Neural Engagement Tracking</li>
@@ -1207,7 +1312,7 @@
                     <div class="luxury-badge">Enterprise</div>
                 </div>
                 <div class="p-10">
-                    <h3 class="text-3xl font-bold text-[var(--obsidian)] mb-8">Institutional Genius</h3>
+                    <h3 class="text-3xl font-bold text-[var(--obsidian)] mb-8">For Institutions</h3>
                     <ul class="luxury-feature-list space-y-6">
                         <li class="text-[#444]">Quantum Security Systems</li>
                         <li class="text-[#444]">Holographic Analytics</li>
@@ -1253,6 +1358,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 </script>
+
 <!-- Testimonials Section -->
 <section class="py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
