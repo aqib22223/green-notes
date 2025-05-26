@@ -969,377 +969,290 @@
 </section>
 
 <style>
-    /* Typewriter Animation */
-    .typewrite {
-        border-right: 2px solid #10B981;
-        animation: blink 1s step-end infinite;
-        display: inline-block;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-
-    @keyframes typewriter {
-        from { width: 0 }
-        to { width: 100% }
-    }
-
-    @keyframes blink {
-        50% { border-color: transparent }
-    }
-
-    /* Social Icons */
-    .social-icon {
-        @apply text-gray-400 hover:text-white transition-all duration-500;
-        transform: scale(1);
-    }
-
-    .social-icon:hover {
-        transform: scale(1.15);
-        text-shadow: 0 0 15px rgba(16, 185, 129, 0.5);
-    }
-
-    .social-icon i {
-        @apply transition-all duration-300;
-    }
-
-    /* Card Animation */
-    [data-aos="card-float"] {
-        transform: translateY(50px) scale(0.95);
-        opacity: 0;
-        transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
-
-    [data-aos="card-float"].aos-animate {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-    }
-
-    /* Particle Animation */
-    @keyframes particle-float {
-        0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
-        33% { transform: translateY(-30px) rotate(5deg) scale(1.1); }
-        66% { transform: translateY(20px) rotate(-5deg) scale(0.9); }
-    }
-</style>
-
-<script>
-    // Enhanced Typewriter Class
-    class TypeWriter {
-        constructor(element, period, texts) {
-            this.element = element;
-            this.period = parseInt(period, 10) || 2000;
-            this.texts = texts;
-            this.loopNum = 0;
-            this.txt = '';
-            this.isDeleting = false;
-            this.tick();
-        }
-
-        tick() {
-            const current = this.loopNum % this.texts.length;
-            const fullTxt = this.texts[current];
-
-            if(this.isDeleting) {
-                this.txt = fullTxt.substring(0, this.txt.length - 1);
-            } else {
-                this.txt = fullTxt.substring(0, this.txt.length + 1);
-            }
-
-            this.element.innerHTML = `<span class="wrap">${this.txt}</span>`;
-
-            let delta = 200 - Math.random() * 100;
-
-            if(this.isDeleting) delta /= 2;
-
-            if(!this.isDeleting && this.txt === fullTxt) {
-                delta = this.texts.length > 1 ? this.period : 1;
-                this.isDeleting = true;
-            } else if(this.isDeleting && this.txt === '') {
-                this.isDeleting = false;
-                this.loopNum++;
-                delta = 500;
-            }
-
-            setTimeout(() => this.tick(), delta);
-        }
-    }
-
-    // Initialize All Typewriters
-    document.addEventListener('DOMContentLoaded', () => {
-        const elements = document.getElementsByClassName('typewrite');
-        Array.from(elements).forEach(element => {
-            new TypeWriter(element, element.dataset.period, JSON.parse(element.dataset.text));
-        });
-    });
-</script>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
-@import url('https://unpkg.com/aos@2.3.1/dist/aos.css');
-
 :root {
-    --crystal: #FFFFFF;
+    --platinum: #FDFDFD;
     --obsidian: #0A0A0A;
     --amethyst: #9B5DE5;
     --sapphire: #4361EE;
     --aqua: #00F5D4;
-    --transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    --luxury-gold: #FFD700;
+    --transition: all 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.premium-section {
-    font-family: 'Inter', sans-serif;
-    background: linear-gradient(160deg, #FFFFFF 0%, #F8F9FF 100%);
-}
-
-.gradient-text {
-    background: linear-gradient(45deg, var(--amethyst), var(--sapphire));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
-
-.ultra-card {
-    background: var(--crystal);
-    border-radius: 2.5rem;
-    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.03);
-    transition: var(--transition);
-    overflow: hidden;
+/* Cosmic Background */
+.cosmic-wrapper {
     position: relative;
+    background: linear-gradient(325deg, 
+        var(--platinum) 0%, 
+        #F8F7FF 30%, 
+        #F3F1FF 100%);
+    overflow: hidden;
+}
+
+.galaxy-overlay {
+    position: absolute;
+    inset: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(155,93,229,0.03) 0%, transparent 40%),
+        radial-gradient(circle at 80% 20%, rgba(0,245,212,0.03) 0%, transparent 40%);
+    animation: galaxy-rotate 120s linear infinite;
+}
+
+@keyframes galaxy-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.holographic-card {
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(24px);
+    border-radius: 3rem;
     border: 1px solid rgba(255,255,255,0.4);
-}
-
-.ultra-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(120deg, 
-        rgba(255,255,255,0.6) 0%, 
-        rgba(255,255,255,0.3) 50%, 
-        rgba(255,255,255,0.6) 100%);
-    mix-blend-mode: soft-light;
-}
-
-.ultra-card:hover {
-    transform: translateY(-10px) rotate(0.5deg);
-    box-shadow: 0 40px 80px -20px rgba(155,93,229,0.08);
-}
-
-.card-image {
-    height: 320px;
-    background-size: cover;
-    background-position: center;
+    box-shadow: 
+        0 8px 32px rgba(0,0,0,0.05),
+        0 0 80px rgba(155,93,229,0.05) inset;
+    transform-style: preserve-3d;
+    transition: var(--transition);
     position: relative;
-    border-radius: 2rem 2rem 0 0;
     overflow: hidden;
-    transition: transform 0.8s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.card-image::after {
+.holographic-card::before {
     content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(180deg, 
-        rgba(255,255,255,0) 60%, 
-        rgba(255,255,255,0.95) 100%);
-}
-
-.ultra-card:hover .card-image {
-    transform: scale(1.03);
-}
-
-.luxury-glow {
     position: absolute;
     inset: -2px;
-    background: radial-gradient(600px circle at var(--x) var(--y), 
-        rgba(155,93,229,0.05) 0%, 
-        transparent 60%);
-    pointer-events: none;
-}
-
-.feature-list li {
-    position: relative;
-    padding-left: 2.5rem;
+    background: linear-gradient(45deg, 
+        var(--amethyst) 0%, 
+        var(--sapphire) 50%, 
+        var(--aqua) 100%);
+    z-index: -1;
+    filter: blur(40px);
+    opacity: 0.15;
     transition: var(--transition);
 }
 
-.feature-list li::before {
+.holographic-card:hover {
+    transform: translateY(-12px) rotateX(2deg) rotateY(2deg);
+    box-shadow: 
+        0 12px 48px rgba(0,0,0,0.08),
+        0 0 120px rgba(155,93,229,0.1) inset;
+}
+
+.card-image-container {
+    position: relative;
+    height: 420px;
+    overflow: hidden;
+    border-radius: 3rem 3rem 0 0;
+    mask-image: linear-gradient(to bottom, 
+        black 60%, 
+        transparent 100%);
+}
+
+.quantum-image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transform: scale(1);
+    transition: var(--transition);
+    filter: grayscale(15%) contrast(110%);
+}
+
+.holographic-card:hover .quantum-image {
+    transform: scale(1.06);
+    filter: grayscale(0%) contrast(120%);
+}
+
+.luxury-badge {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: linear-gradient(45deg, var(--amethyst), var(--sapphire));
+    color: white;
+    padding: 0.8rem 1.6rem;
+    border-radius: 2rem;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 24px rgba(155,93,229,0.2);
+    transform: translateY(-20px);
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.holographic-card:hover .luxury-badge {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.neon-underline {
+    position: relative;
+    display: inline-block;
+}
+
+.neon-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--amethyst), var(--aqua));
+    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.holographic-card:hover .neon-underline::after {
+    width: 100%;
+}
+
+.luxury-feature-list li {
+    position: relative;
+    padding-left: 3rem;
+    margin-bottom: 1.5rem;
+    transform: translateX(-20px);
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.luxury-feature-list li.visible {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+.luxury-feature-list li::before {
     content: '';
     position: absolute;
     left: 0;
     top: 0.4em;
-    width: 1.4em;
-    height: 1.4em;
+    width: 1.6em;
+    height: 1.6em;
     background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z" fill="%239B5DE5"/></svg>');
     transition: transform 0.3s ease;
 }
 
-.feature-list li:hover {
-    transform: translateX(8px);
-}
-
-.luxury-button {
-    background: linear-gradient(135deg, var(--amethyst) 0%, var(--sapphire) 100%);
-    position: relative;
-    overflow: hidden;
-    transition: var(--transition);
-    border: 2px solid rgba(155,93,229,0.1);
-}
-
-.luxury-button::after {
-    content: '';
+.floating-particle {
     position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: linear-gradient(45deg, 
-        transparent 20%, 
-        rgba(255,255,255,0.25) 50%, 
-        transparent 80%);
-    transform: rotate(45deg);
-    animation: shine 6s infinite;
+    background: linear-gradient(45deg, var(--amethyst), var(--aqua));
+    border-radius: 50%;
+    filter: blur(4px);
+    animation: particle-float 12s infinite;
 }
 
-@keyframes float {
-    0%, 100% { transform: translateY(0) scale(1); }
-    50% { transform: translateY(-20px) scale(0.98); }
-}
-
-.geometric-pattern {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-image: 
-        radial-gradient(rgba(155,93,229,0.03) 1px, transparent 0),
-        radial-gradient(rgba(155,93,229,0.03) 1px, transparent 0);
-    background-size: 40px 40px;
-    background-position: 0 0, 20px 20px;
-    opacity: 0.4;
+@keyframes particle-float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(40px, -60px) scale(0.9); }
+    50% { transform: translate(-30px, 50px) scale(1.1); }
+    75% { transform: translate(50px, 30px) scale(0.95); }
 }
 </style>
 
-<section id="solutions" class="premium-section relative py-32">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-24" data-aos="fade-up">
-            <span class="inline-block px-6 py-3 bg-white text-[var(--amethyst)] rounded-full text-sm font-bold mb-6 shadow-xl border border-[rgba(155,93,229,0.1)]">
-                Solutions
-            </span>
-            <h2 class="text-5xl sm:text-6xl font-bold text-[var(--obsidian)] mb-5">
-                Tailored for <span class="gradient-text">Every Learner</span>
-            </h2>
-            <p class="text-xl text-[#555] max-w-3xl mx-auto leading-relaxed">
-               Whether you're a student, educator, or institution, we have solutions designed to meet your needs.
-            </p>
+<section class="cosmic-wrapper py-40 relative">
+    <div class="galaxy-overlay"></div>
+    
+    <!-- Floating Particles -->
+    <div class="floating-particle" style="width: 120px; height: 120px; top: 20%; left: 10%; opacity: 0.08;"></div>
+    <div class="floating-particle" style="width: 80px; height: 80px; top: 70%; right: 15%; opacity: 0.06; animation-delay: -3s;"></div>
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center mb-24">
+            <div class="inline-block px-8 py-4 bg-white/90 backdrop-blur-lg text-[var(--amethyst)] rounded-full text-lg font-bold mb-8 shadow-2xl border border-white/20">
+                Quantum Excellence Suite
+            </div>
+            <h1 class="text-6xl sm:text-7xl font-bold text-[var(--obsidian)] mb-8 leading-tight">
+                Redefining <span class="neon-underline">Educational</span><br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[var(--amethyst)] via-[var(--sapphire)] to-[var(--aqua)]">Innovation</span>
+            </h1>
         </div>
 
-        <div class="grid md:grid-cols-3 gap-8">
-            <!-- For Student  -->
-            <div class="ultra-card group" data-aos="fade-up" @mousemove="updateGlow">
-                <div class="luxury-glow" :style="glowStyle"></div>
-                <div class="card-image" style="background-image: url('sss.jpg')">
-                    <div class="geometric-pattern"></div>
+        <div class="grid lg:grid-cols-3 gap-12">
+            <!-- Student Card -->
+            <div class="holographic-card group">
+                <div class="card-image-container">
+                    <img src="sss.jpg" class="quantum-image" alt="Student Innovation">
+                    <div class="luxury-badge">AI-Powered</div>
                 </div>
-                <div class="p-8 relative">
-                    <h3 class="text-2xl font-bold text-[var(--obsidian)] mb-6">Student Excellence</h3>
-                    <p class="text-[#555] mb-8 leading-relaxed">
-                        Access thousands of study materials, collaborate with classmates, and track your environmental impact.
-                    </p>
-                    <ul class="feature-list space-y-5 mb-10">
-                        <li class="text-[#444]">Smart Note Sharing</li>
-                        <li class="text-[#444]">Collaborative Workspaces</li>
-                        <li class="text-[#444]">Learning Analytics</li>
+                <div class="p-10">
+                    <h3 class="text-3xl font-bold text-[var(--obsidian)] mb-8">Student Prodigy</h3>
+                    <ul class="luxury-feature-list space-y-6">
+                        <li class="text-[#444]">Smart Neural Analytics</li>
+                        <li class="text-[#444]">3D Collaboration Spaces</li>
+                        <li class="text-[#444]">Quantum Note Sharing</li>
                     </ul>
-                    <button class="luxury-button w-full px-8 py-4 text-white font-bold rounded-xl">
-                        Explore Student Tools
+                    <button class="mt-12 w-full px-10 py-5 bg-gradient-to-r from-[var(--amethyst)] to-[var(--sapphire)] text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]">
+                        Explore Neuro Tools →
                     </button>
                 </div>
             </div>
 
-            <!-- For Educators -->
-            <div class="ultra-card group" data-aos="fade-up" data-aos-delay="100">
-                <div class="luxury-glow" :style="glowStyle"></div>
-                <div class="card-image" style="background-image: url('e.jpg')">
-                    <div class="geometric-pattern"></div>
+            <!-- Educator Card -->
+            <div class="holographic-card group">
+                <div class="card-image-container">
+                    <img src="e.jpg" class="quantum-image" alt="Educator Platform">
+                    <div class="luxury-badge">AI-Analytics</div>
                 </div>
-                <div class="p-8 relative">
-                    <h3 class="text-2xl font-bold text-[var(--obsidian)] mb-6">Educator Mastery</h3>
-                    <p class="text-[#555] mb-8 leading-relaxed">
-                        Advanced classroom management with real-time collaboration and performance insights.
-                    </p>
-                    <ul class="feature-list space-y-5 mb-10">
-                        <li class="text-[#444]">Course Automation</li>
-                        <li class="text-[#444]">Assignment Analytics</li>
-                        <li class="text-[#444]">Engagement Tracking</li>
+                <div class="p-10">
+                    <h3 class="text-3xl font-bold text-[var(--obsidian)] mb-8">Educator Visionary</h3>
+                    <ul class="luxury-feature-list space-y-6">
+                        <li class="text-[#444]">Holographic Classrooms</li>
+                        <li class="text-[#444]">Neural Engagement Tracking</li>
+                        <li class="text-[#444]">Quantum Grading System</li>
                     </ul>
-                    <button class="luxury-button w-full px-8 py-4 text-white font-bold rounded-xl">
-                        Discover Educator Solutions
+                    <button class="mt-12 w-full px-10 py-5 bg-gradient-to-r from-[var(--sapphire)] to-[var(--aqua)] text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]">
+                        Discover AI Solutions →
                     </button>
                 </div>
             </div>
 
-            <!-- For Institutions -->
-            <div class="ultra-card group" data-aos="fade-up" data-aos-delay="200">
-                <div class="luxury-glow" :style="glowStyle"></div>
-                <div class="card-image" style="background-image: url('i.jpg')">
-                    <div class="geometric-pattern"></div>
+            <!-- Institution Card -->
+            <div class="holographic-card group">
+                <div class="card-image-container">
+                    <img src="i.jpg" class="quantum-image" alt="Institution Dashboard">
+                    <div class="luxury-badge">Enterprise</div>
                 </div>
-                <div class="p-8 relative">
-                    <h3 class="text-2xl font-bold text-[var(--obsidian)] mb-6">Institutional Leadership</h3>
-                    <p class="text-[#555] mb-8 leading-relaxed">
-                        Comprehensive sustainability tracking and institution-wide collaboration systems.
-                    </p>
-                    <ul class="feature-list space-y-5 mb-10">
-                        <li class="text-[#444]">Department Analytics</li>
-                        <li class="text-[#444]">Enterprise Security</li>
-                        <li class="text-[#444]">Custom Integration</li>
+                <div class="p-10">
+                    <h3 class="text-3xl font-bold text-[var(--obsidian)] mb-8">Institutional Genius</h3>
+                    <ul class="luxury-feature-list space-y-6">
+                        <li class="text-[#444]">Quantum Security Systems</li>
+                        <li class="text-[#444]">Holographic Analytics</li>
+                        <li class="text-[#444]">Neural Network Integration</li>
                     </ul>
-                    <button class="luxury-button w-full px-8 py-4 text-white font-bold rounded-xl">
-                        View Enterprise Solutions
+                    <button class="mt-12 w-full px-10 py-5 bg-gradient-to-r from-[var(--aqua)] to-[var(--amethyst)] text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]">
+                        View Enterprise Suite →
                     </button>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Premium Decorations -->
-    <div class="absolute inset-0 pointer-events-none">
-        <div class="geometric-pattern"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent to-white opacity-30"></div>
     </div>
 </section>
 
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-    // Dynamic Glow Effect
-    document.querySelectorAll('.ultra-card').forEach(card => {
-        const glow = card.querySelector('.luxury-glow');
+    // Animate features on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) {
+                Array.from(entry.target.children).forEach((child, index) => {
+                    setTimeout(() => {
+                        child.classList.add('visible');
+                    }, index * 150);
+                });
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.luxury-feature-list').forEach(list => {
+        observer.observe(list);
+    });
+
+    // Dynamic gradient rotation
+    document.querySelectorAll('.holographic-card').forEach(card => {
         card.addEventListener('mousemove', (e) => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            glow.style.setProperty('--x', `${x}px`);
-            glow.style.setProperty('--y', `${y}px`);
-        });
-    });
-
-    // Initialize AOS
-    AOS.init({
-        duration: 1200,
-        once: true,
-        easing: 'ease-in-out-quart',
-        offset: 150
-    });
-
-    // Parallax Effect
-    window.addEventListener('scroll', () => {
-        document.querySelectorAll('.card-image').forEach(el => {
-            const scrollY = window.pageYOffset;
-            el.style.transform = `translateY(${scrollY * 0.1}px)`;
+            card.style.setProperty('--gradient-x', `${x}px`);
+            card.style.setProperty('--gradient-y', `${y}px`);
         });
     });
 });
 </script>
-
 <!-- Testimonials Section -->
 <section class="py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
